@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random User Profile Generator</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("#generateBtn").click(function(){
+        $.ajax({
+            url: "https://randomuser.me/api/",
+            type: "GET",
+            success: function(data){
+                if(data.results.length > 0) {
+                    var user = data.results[0];
+                    var profileHtml = "<div class='profile'>";
+                    profileHtml += "<img src='" + user.picture.large + "' alt='Profile Picture'>";
+                    profileHtml += "<h2>" + user.name.title + " " + user.name.first + " " + user.name.last + "</h2>";
+                    profileHtml += "<p><strong>Gender:</strong> " + user.gender + "</p>";
+                    profileHtml += "<p><strong>Location:</strong> " + user.location.city + ", " + user.location.state + ", " + user.location.country + "</p>";
+                    profileHtml += "<p><strong>Email:</strong> " + user.email + "</p>";
+                    profileHtml += "<p><strong>Phone:</strong> " + user.phone + "</p>";
+                    profileHtml += "<p><strong>Cell:</strong> " + user.cell + "</p>";
+                    profileHtml += "</div>";
+                    $("#profileContainer").html(profileHtml);
+                } else {
+                    $("#profileContainer").html("<p>No user data found.</p>");
+                }
+            },
+            error: function(xhr, status, error) {
+                $("#profileContainer").html("<p>Error occurred while fetching user data. Please try again later.</p>");
+            }
+        });
+    });
+});
+</script>
+</head>
+<body>
+    <h1>Random User Profile Generator</h1>
+    <button id="generateBtn">Generate Random User Profile</button>
+    <div id="profileContainer"></div>
+</body>
+</html>

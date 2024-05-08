@@ -1,0 +1,43 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.profile {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 400px;
+}
+
+.profile img {
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.profile p {
+    margin: 5px 0;
+}
+
+.profile p strong {
+    font-weight: bold;
+}

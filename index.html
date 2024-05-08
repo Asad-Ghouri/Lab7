@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>University Search</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("#searchBtn").click(function(){
+        var searchInput = $("#searchInput").val();
+        if(searchInput.trim() !== "") {
+            $.ajax({
+                url: "http://universities.hipolabs.com/search?name=" + searchInput,
+                type: "GET",
+                success: function(data){
+                    if(data.length > 0) {
+                        var university = data[0];
+                        var html = "<h2>University Information</h2>";
+                        html += "<p><strong>Name:</strong> " + university.name + "</p>";
+                        html += "<p><strong>Country:</strong> " + university.country + "</p>";
+                        html += "<p><strong>Website:</strong> <a href='" + university.web_pages[0] + "' target='_blank'>" + university.web_pages[0] + "</a></p>";
+                        $("#universityInfo").html(html);
+                    } else {
+                        $("#universityInfo").html("<p>No university found with that name.</p>");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    $("#universityInfo").html("<p>Error occurred while fetching data. Please try again later.</p>");
+                }
+            });
+        } else {
+            $("#universityInfo").html("<p>Please enter a university name.</p>");
+        }
+    });
+});
+</script>
+</head>
+<body>
+
+    <!-- tasks1 -->
+    <!-- //FAST - National University of Computer and Emerging Sciences (NUCES) -->
+    <h1>University Search</h1>
+    <form>
+        <input type="text" id="searchInput" placeholder="Enter university name">
+        <button type="button" id="searchBtn">Search</button>
+    </form>
+    <div id="universityInfo"></div>
+</body>
+</html>
